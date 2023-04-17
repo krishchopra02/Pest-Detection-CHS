@@ -13,15 +13,10 @@ class VideoStream:
     """Camera object that controls video streaming from the Picamera"""
     def __init__(self,resolution=(640,480),framerate=30):
         # Initialize the PiCamera and the camera image stream
-        self.stream = cv2.VideoCapture(0)
+        self.stream = cv2.VideoCapture(-1)
         ret = self.stream.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
         ret = self.stream.set(3,resolution[0])
         ret = self.stream.set(4,resolution[1])
-
-
-
-
-
 
 
         pb = Pushbullet('o.6VQ9bu8yUtfRkP52qPWZE7EQUBeJDur6')
@@ -202,7 +197,7 @@ while True:
 
             # Draw label
             object_name = labels[int(classes[i])] # Look up object name from "labels" array using class index
-            if (object_name=='rat' or object_name=='bug') and scores[i]>=0.60:
+            if (object_name=='rat' or object_name=='bug' or object_name=="hedgehog") and scores[i]>=0.70:
                 pest_count-=1
             if pest_count==0:
                 videostream.dev.push_note("Alert",object_name+" found!")
