@@ -140,6 +140,12 @@ def main():
       required=False,
       default=4)
   parser.add_argument(
+          '--messageThreshold',
+          help="The score threshold at which message is sent",
+          required=False,
+          default=0.87
+          )
+  parser.add_argument(
       '--enableEdgeTPU',
       help='Whether to run the model on EdgeTPU.',
       action='store_true',
@@ -160,7 +166,7 @@ def main():
   args = parser.parse_args()
 
   run(args.model, int(args.maxResults),
-      args.scoreThreshold, int(args.numThreads), bool(args.enableEdgeTPU),
+      args.scoreThreshold, int(args.numThreads),args.messageThreshold, bool(args.enableEdgeTPU),
       int(args.cameraId), args.frameWidth, args.frameHeight)
 
 
